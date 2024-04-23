@@ -1,7 +1,7 @@
 import { LoginUserInput, SignUpUserInput } from "../interfaces";
 
 export const loginUserInitialValues: LoginUserInput = {
-    email: "",
+    username: "",
     password: "",
   };
 
