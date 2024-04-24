@@ -1,67 +1,108 @@
-import React from 'react';
-import { Container, Box, TextField, Button, Typography, Link } from '@mui/material';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@apollo/client'
+import { Container, Box, TextField, Button, Typography, CircularProgress, Alert, Link } from '@mui/material';
 import { CREATE_ACCOUNT, ALREADY_ACCOUNT, PASSWORD_MSG } from '../../constants/constantText';
+import { flexColumnCenter } from '../../constants/styleConstants';
+import { SIGNUP_USER } from '../../graphQl/auth/mutations';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { SignUpUserInput } from '../../interfaces';
+import { SignUpSchema } from '../../validationSchema';
+import { SignUpUserInitialValues } from '../../constants/formInitialValues';
+import { Resolver } from 'react-hook-form';
+import { LOGIN_ROUTE } from '../../constants/routes';
 
-const SignUp = () => {
+
+export const SignUpComponent = (): JSX.Element => {
+  const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm<SignUpUserInput>({
+    resolver: yupResolver(SignUpSchema) as Resolver<SignUpUserInput>,
+    defaultValues: SignUpUserInitialValues
+  });
+
+  const [signUpUser, { loading, error }] = useMutation(SIGNUP_USER);
+
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">{error.message}</Alert>;
+
+  const onSubmit: SubmitHandler<SignUpUserInput> = async (data) => {
+    try {
+      const response = await signUpUser({
+        variables: {
+          input: data
+        }
+      });
+      navigate(LOGIN_ROUTE)
+    } catch (err) {
+      alert('Signup failed!');
+    };
+  }
+
   return (
-      <Container component="main" maxWidth="md">
-        <Box
-          sx={{
-            marginTop: 8,
-            // TODO: move to styledConstants -> flexColumnCenter
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            border: '1px solid lightgray',
-            padding: 3,
-            gap: 4
-          }}
-        >
-          <Box textAlign='center'>
-          <Typography variant="h5" sx={{ mb: 3 }}>
-          {CREATE_ACCOUNT}
-          </Typography>
-          <Link href="#" variant="body2" sx={{ mb: 2 }}>
-            {ALREADY_ACCOUNT}
-          </Link>
-          </Box>
-          <TextField
-            variant="outlined"
-            // margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="What's your email?"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            // margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Create a password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Typography variant="body2" sx={{mb: 2 }}>
-            {PASSWORD_MSG}
-          </Typography>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            // color="primary"
-            sx={{ mt: 3, mb: 2 }}
-          >
+    <Container component="main" maxWidth="md" >
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{
+          marginTop: 8,
+          ...flexColumnCenter,
+          padding: 3,
+          gap: 4
+        }}
+      >
+        <Box textAlign='center'>
+          <Typography variant="h2" gutterBottom>
             {CREATE_ACCOUNT}
-          </Button>
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            <Link href="/login" underline="hover">
+              {ALREADY_ACCOUNT}
+            </Link>
+          </Typography>
         </Box>
-      </Container>
+        <Typography gutterBottom align='left'>
+          What's your email?
+        </Typography>
+        <TextField
+          variant="outlined"
+          required
+          fullWidth
+          id="email"
+          label="Enter your email address"
+          autoComplete="email"
+          autoFocus
+          {...register("email")}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+        />
+        <Typography gutterBottom align="left">
+          Create a password
+        </Typography>
+        <TextField
+          variant="outlined"
+          required
+          fullWidth
+          label="Enter your password"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          {...register("password")}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+        />
+        <Typography variant="body2" align="left" sx={{ mb: 2 }} >
+          {PASSWORD_MSG}
+        </Typography>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          {CREATE_ACCOUNT}
+        </Button>
+      </Box>
+    </Container>
   );
 };
 
-export default SignUp;
