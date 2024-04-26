@@ -11,7 +11,7 @@ export type LoginUserInput = {
 
 export type CreateArticleInput = {
     title: string;
-    categoryIds: number[];
+    categoryIds: number;
     description: string;
     time: string;
     imgUrl: string;
@@ -23,6 +23,8 @@ export type ArticleCardProps = {
     category: string;
     date: string;
     author: string;
+    id: number
+    isFeatured: boolean
 }
 
 export type ChildrenType = {

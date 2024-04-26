@@ -31,7 +31,7 @@ export default function Header() {
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '100%' }}>
             <Avatar alt="Logo" src={''} sx={{ marginRight: 2 }} />
             <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-around', maxWidth: 360 }}>
-              <Typography variant="h6" noWrap component={RouterLink} to="/">
+              <Typography variant="h6"  component={RouterLink} to={HOME_ROUTE} sx={{color: 'inherit' , textDecoration: 'none', marginRight: 2}}>
                 {HOME}
               </Typography>
 

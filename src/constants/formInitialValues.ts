@@ -12,7 +12,7 @@ export const SignUpUserInitialValues: SignUpUserInput = {
 
 export const CreateArticleFormInitialValues: CreateArticleInput = {
   title: "",
-  categoryIds: [],
+  categoryIds: 0,
   description: "",
   time: "",
   imgUrl: "",

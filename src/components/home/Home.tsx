@@ -1,76 +1,34 @@
-import Header from "../common/Header";
 import ArticleCard from "../common/ArticleCard";
-import { Box, Grid, Container, Typography } from '@mui/material';
+import { Box, Grid, Container, Typography, Divider } from '@mui/material';
+import { articles } from "../../constants";
+import { TOP_STORIES } from "../../constants/constantText";
 
-const articles = [
-    {
-        imageUrl: '',
-        title: 'The impact of technology on the workplace: How technology is changing', 
-        category: 'Technology', 
-        date:'09-05-24', 
-        author: 'Tracey Wilson'
-    },
-    {
-        imageUrl: '',
-        title: 'The impact of technology on the workplace: How technology is changing', 
-        category: 'Technology', 
-        date:'09-05-24', 
-        author: 'Tracey Wilson'
-    },
-    {
-        imageUrl: '',
-        title: 'The impact of technology on the workplace: How technology is changing', 
-        category: 'Technology', 
-        date:'09-05-24', 
-        author: 'Tracey Wilson'
-    },
-    {
-        imageUrl: '',
-        title: 'The impact of technology on the workplace: How technology is changing', 
-        category: 'Technology', 
-        date:'09-05-24', 
-        author: 'Tracey Wilson'
-    },
-    {
-        imageUrl: '',
-        title: 'The impact of technology on the workplace: How technology is changing', 
-        category: 'Technology', 
-        date:'09-05-24', 
-        author: 'Tracey Wilson'
-    },
-    {
-        imageUrl: '',
-        title: 'The impact of technology on the workplace: How technology is changing', 
-        category: 'Technology', 
-        date:'09-05-24', 
-        author: 'Tracey Wilson'
-    },
-    {
-        imageUrl: '',
-        title: 'The impact of technology on the workplace: How technology is changing', 
-        category: 'Technology', 
-        date:'09-05-24', 
-        author: 'Tracey Wilson'
-    },
-
-];
 
 export default function HomeScreen() {
+  const featureArticle = articles[0];
+  const remainingArticles = articles.slice(1);
+
   return (
-      <Box sx={{ flexGrow: 1 }}>
-        {/* <Header /> */}
-        <Container maxWidth="lg">
-          <Typography variant="h4" component="h2" sx={{ marginY: 4 }}>
-            Top Stories
-          </Typography>
-          <Grid container spacing={4}>
-            {articles.map((article, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <ArticleCard {...article}/>
-              </Grid>
-            ))}
+    <Box sx={{ flexGrow: 1 }}>
+      <Container maxWidth="lg">
+        <Typography variant="h2"  sx={{ marginY: 4 }}>
+         {TOP_STORIES}
+        </Typography>
+
+        <Divider sx={{ width: '100%'}}></Divider>
+
+        <Grid container spacing={4}>
+          <Grid item xs={12}>
+            <ArticleCard {...featureArticle} id={featureArticle.id} isFeatured/>
           </Grid>
-        </Container>
-      </Box>
+
+          {remainingArticles.map((article, index) => (
+            <Grid item xs={12} sm={6} md={4} key={article.id}>
+              <ArticleCard isFeatured={false} {...article} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </Box>
   );
 }

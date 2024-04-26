@@ -29,10 +29,7 @@ export const LoginShema = yup.object().shape<YupSchemaShape<LoginUserInput>>({
 export const CreateArticleSchema = yup.object().shape<YupSchemaShape<CreateArticleInput>>({
   title: yup.string()
     .required('Title is required.'),
-  categoryIds: yup.array()
-    .of(yup.number().integer('Category ID must be an integer.')
-      .required('Category ID is required.'))
-    .min(1, 'At least one category is required.')
+  categoryIds: yup.number()
     .required('Category IDs are required.'),
   description: yup.string()
     .required('Description is required.'),

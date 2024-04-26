@@ -4,11 +4,22 @@ import { ArticleCardProps } from '../../interfaces';
 import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
 
-const ArticleCard: React.FC<ArticleCardProps & { editable?: boolean }> = ({ imageUrl, title, category, date, author, editable }) => {
+const ArticleCard: React.FC<ArticleCardProps & { editable?: boolean }> = ({ imageUrl, title, category, date, author, id, editable, isFeatured }) => {
+  const navigate = useNavigate();
+
+  const cardStyles = isFeatured
+    ? { maxWidth: '100%', m: 2, boxShadow: 3 } // Add styles for featured article
+    : { maxWidth: 345, m: 2 };
+
+  const handleClick = () => {
+    console.log("here" )
+    navigate(`/article/${id}`);
+  }
   return (
-    <Card sx={{ maxWidth: 345, m: 2 }}>
+    <Card onClick={handleClick} sx={cardStyles}>
       <CardActionArea>
         <CardMedia
           component="img"

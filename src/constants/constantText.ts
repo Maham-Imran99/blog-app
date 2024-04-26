@@ -10,3 +10,4 @@ export const CREATE_ARTICLE_TEXT = 'Create Article';
 export const HOME = 'Home';
 export const MY_ARTICLES = 'My Articles';
 export const LOGOUT_TEXT = 'Logout';
+export const TOP_STORIES = 'Top Stories';
