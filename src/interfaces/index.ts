@@ -9,6 +9,14 @@ export type LoginUserInput = {
     password: string
 };
 
+export type CreateArticleInput = {
+    title: string;
+    categoryIds: number[];
+    description: string;
+    time: string;
+    imgUrl: string;
+};
+
 export type ArticleCardProps = {
     imageUrl: string;
     title: string;

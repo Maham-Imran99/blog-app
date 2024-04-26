@@ -6,3 +6,7 @@ export const LOGIN_TEXT = 'Log In';
 export const SIGNUP_TEXT = 'Sign Up';
 export const DONT_HAVE_ACCOUNT = 'Dont Have An Account ?';
 export const FORGOT_PASS = 'Forgot your password ?'
+export const CREATE_ARTICLE_TEXT = 'Create Article';
+export const HOME = 'Home';
+export const MY_ARTICLES = 'My Articles';
+export const LOGOUT_TEXT = 'Logout';

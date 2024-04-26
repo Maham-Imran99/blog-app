@@ -8,10 +8,17 @@ const typography: TypographyStyle = {
   h6: {
     fontWeight: 500,
   },
-  h5:{
-    fontWeight: 600,
-    size: '36px',
-    font: 'Poppins'
+  fontFamily: 'Poppins, sans-serif',
+
+  h2: {
+    fontSize: '36px',    
+    fontWeight: 600,     
+    lineHeight: '54px',  
+  },
+  body1: {  
+    fontSize: '15px',    
+    fontWeight: 400,     
+    lineHeight: '22.5px', 
   }
 };
 

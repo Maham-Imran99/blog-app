@@ -8,11 +8,12 @@ import {
   MenuItem, 
   InputLabel, 
   FormControl, 
+  Divider,
   TextareaAutosize, 
   Box
 } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme/index';
+import theme from '../../../theme/index';
 
 
 
@@ -36,6 +37,9 @@ export default function CreateArticleForm() {
         <Typography variant="h4" component="h1" gutterBottom>
           Create New Article
         </Typography>
+
+        <Divider sx={{ width: '100%', my: 2 }}></Divider>
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             required

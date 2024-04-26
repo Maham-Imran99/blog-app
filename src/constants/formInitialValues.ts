@@ -1,11 +1,19 @@
-import { LoginUserInput, SignUpUserInput } from "../interfaces";
+import { CreateArticleInput, LoginUserInput, SignUpUserInput } from "../interfaces";
 
 export const loginUserInitialValues: LoginUserInput = {
-    username: "",
-    password: "",
-  };
+  username: "",
+  password: "",
+};
 
-  export const SignUpUserInitialValues: SignUpUserInput = {
-    email: "",
-    password: ""
-  }
+export const SignUpUserInitialValues: SignUpUserInput = {
+  email: "",
+  password: ""
+}
+
+export const CreateArticleFormInitialValues: CreateArticleInput = {
+  title: "",
+  categoryIds: [],
+  description: "",
+  time: "",
+  imgUrl: "",
+}

@@ -60,9 +60,9 @@ export const SignUpComponent = (): JSX.Element => {
             </Link>
           </Typography>
         </Box>
-        <Typography gutterBottom align='left'>
+        {/* <Typography gutterBottom align='left'>
           What's your email?
-        </Typography>
+        </Typography> */}
         <TextField
           variant="outlined"
           required
@@ -75,9 +75,9 @@ export const SignUpComponent = (): JSX.Element => {
           error={!!errors.email}
           helperText={errors.email?.message}
         />
-        <Typography gutterBottom align="left">
+        {/* <Typography gutterBottom align="left">
           Create a password
-        </Typography>
+        </Typography> */}
         <TextField
           variant="outlined"
           required

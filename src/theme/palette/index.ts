@@ -7,6 +7,9 @@ const palette: PaletteOptions = {
     secondary: {
         main: '#0000FF',
     },
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
+    
 };
 
 export default palette;

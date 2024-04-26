@@ -12,9 +12,12 @@ import { flexColumnCenter } from '../../constants/styleConstants';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { DONT_HAVE_ACCOUNT, FORGOT_PASS, LOGIN_TEXT, SIGNUP_TEXT } from '../../constants/constantText';
+import { useNavigate } from 'react-router-dom';
+import { HOME_ROUTE } from '../../constants/routes';
 
 
 export const LoginComponent = (): JSX.Element => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
@@ -48,6 +51,7 @@ export const LoginComponent = (): JSX.Element => {
         }
       });
       alert('Login successful!');
+      navigate(HOME_ROUTE);
     } catch (err) {
       alert('Login failed!');
     };

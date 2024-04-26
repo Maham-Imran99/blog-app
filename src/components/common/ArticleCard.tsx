@@ -1,16 +1,12 @@
-// ArticleCard.tsx
 import React from 'react';
-import { Card, CardActionArea, CardContent, CardMedia, Typography, Box } from '@mui/material';
+import { Avatar, Card, CardActionArea, CardContent, CardMedia, Typography, Box, IconButton, Badge } from '@mui/material';
+import { ArticleCardProps } from '../../interfaces';
+import PersonIcon from '@mui/icons-material/Person';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-interface ArticleCardProps {
-  imageUrl: string;
-  title: string;
-  category: string;
-  date: string;
-  author: string;
-}
 
-const ArticleCard: React.FC<ArticleCardProps> = ({ imageUrl, title, category, date, author }) => {
+const ArticleCard: React.FC<ArticleCardProps & { editable?: boolean }> = ({ imageUrl, title, category, date, author, editable }) => {
   return (
     <Card sx={{ maxWidth: 345, m: 2 }}>
       <CardActionArea>
@@ -24,17 +20,42 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ imageUrl, title, category, da
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="body2" color="text.secondary">
-              {category}
-            </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {category}
+          </Typography>
+          {/* <Box display="flex" justifyContent="space-between" alignItems="center">
+           
             <Typography variant="body2" color="text.secondary">
               {date}
             </Typography>
-          </Box>
-          <Typography variant="body2" color="text.secondary">
+          </Box> */}
+
+          {/* <Typography variant="body2" color="text.secondary">
             {author}
-          </Typography>
+          </Typography> */}
+          {editable && (
+             <Box>
+             <IconButton aria-label="edit" size="small" sx={{ ml: 1 }}>
+               <Badge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot" invisible>
+                 <EditIcon />
+               </Badge>
+             </IconButton>
+             <IconButton aria-label="delete" size="small" sx={{ ml: 1 }}>
+               <Badge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot" invisible>
+                 <DeleteIcon />
+               </Badge>
+             </IconButton>
+           </Box>
+          )}
+
+          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '8px' }}>
+            <Avatar sx={{ width: 24, height: 24, marginRight: '8px' }}>
+              <PersonIcon />
+            </Avatar>
+            <Typography variant="body2">
+              {author} - {date}
+            </Typography>
+          </Box>
         </CardContent>
       </CardActionArea>
     </Card>
