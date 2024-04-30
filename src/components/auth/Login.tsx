@@ -8,7 +8,7 @@ import { LoginShema } from '../../validationSchema';
 import { loginUserInitialValues } from '../../constants/formInitialValues';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../graphQl/auth/mutations';
-import { flexColumnCenter } from '../../constants/styleConstants';
+import { flexColumnCenter } from '../../theme/styleConstants';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { DONT_HAVE_ACCOUNT, FORGOT_PASS, LOGIN_TEXT, SIGNUP_TEXT } from '../../constants/constantText';
@@ -141,7 +141,6 @@ export const LoginComponent = (): JSX.Element => {
         </Typography>
 
         <Button
-          type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}

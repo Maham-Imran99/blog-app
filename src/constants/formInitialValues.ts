@@ -1,4 +1,4 @@
-import { CreateArticleInput, LoginUserInput, SignUpUserInput } from "../interfaces";
+import { CreateArticleInput, LoginUserInput, SignUpUserInput, UpdateArticleInput } from "../interfaces";
 
 export const loginUserInitialValues: LoginUserInput = {
   username: "",
@@ -12,8 +12,17 @@ export const SignUpUserInitialValues: SignUpUserInput = {
 
 export const CreateArticleFormInitialValues: CreateArticleInput = {
   title: "",
-  categoryIds: 0,
+  categoryIds: 1,
   description: "",
   time: "",
   imgUrl: "",
+}
+
+export const UpdateArticleFormInitialValues: UpdateArticleInput = {
+  title: "",
+  categoryIds: 1,
+  description: "",
+  time: "",
+  imgUrl: "",
+  id: 1
 }

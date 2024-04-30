@@ -23,7 +23,6 @@ const components: Components = {
   MuiToolbar: {
     styleOverrides: {
       root: {
-        //Toolbar styles here
       },
     },
   },
@@ -31,7 +30,6 @@ const components: Components = {
   MuiIconButton: {
     styleOverrides: {
       root: {
-        // Define your IconButton styles here
       },
     },
   },

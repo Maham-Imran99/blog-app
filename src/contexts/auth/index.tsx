@@ -12,7 +12,6 @@ export const AuthContextProvider :FC<ChildrenType> = ({ children }) => {
 
   const login = (token: string) => {
     localStorage.setItem('token', token);
-    console.log("arayyyyyyyyyyyyyyyyyyy", token)
     setIsLoggedIn(true);
   };
 

@@ -1,9 +1,9 @@
-import { AppBar, Toolbar, Typography, Button, IconButton, InputBase, Box, Avatar } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, Avatar } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { Search, SearchIconWrapper, StyledInputBase } from '../../theme/components/headerStyles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth';
-import { CREATE_ARTICLE_TEXT, HOME, LOGIN_TEXT, LOGOUT_TEXT, MY_ARTICLES } from '../../constants/constantText';
+import { CREATE_ARTICLE_TEXT, HOME, LOGIN_TEXT, LOGOUT_TEXT, MY_ARTICLES_TEXT } from '../../constants/constantText';
 import { CREATE_ARTICLE_ROUTE, HOME_ROUTE, LOGIN_ROUTE, MY_ARTICLES_ROUTE } from '../../constants/routes';
 
 export default function Header() {
@@ -25,6 +25,7 @@ export default function Header() {
 
   return (
     <AppBar position="static" color="primary">
+      
       <Toolbar>
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
 
@@ -42,7 +43,7 @@ export default function Header() {
                   variant="h6"
                   sx={{ marginRight: 2, textDecoration: 'none', color: 'inherit' }}
                 >
-                 {MY_ARTICLES}
+                 {MY_ARTICLES_TEXT}
                 </Typography>
               ) : (
                 <Typography

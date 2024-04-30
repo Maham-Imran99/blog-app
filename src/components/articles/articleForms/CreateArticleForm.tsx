@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
@@ -7,16 +7,16 @@ import {
   Typography,
   TextField,
   Button,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
   Divider,
   Box,
   CircularProgress,
-  Alert
+  Alert,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select
 } from '@mui/material';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { CreateArticleSchema } from '../../../validationSchema';
 import { CreateArticleFormInitialValues } from '../../../constants/formInitialValues';
 import { Resolver } from 'react-hook-form';
@@ -25,35 +25,52 @@ import { CREATE_ARTICLE } from '../../../graphQl/article/mutations';
 import { MY_ARTICLES_ROUTE } from '../../../constants/routes';
 
 export const CreateArticleForm = (): JSX.Element => {
+  const token = localStorage.getItem('token') || '';
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm<CreateArticleInput>({
+
+  const methods = useForm<CreateArticleInput>({
+    mode: 'all',
     resolver: yupResolver(CreateArticleSchema) as Resolver<CreateArticleInput>,
     defaultValues: CreateArticleFormInitialValues
-  });
 
-  const [image, setImage] = useState<File | null> (null);
+  });
+  const { handleSubmit, register, formState: {errors} ,watch} = methods;
+  const [image, setImage] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     setImage(file);
   }
 
-  const [createArticle, {loading, error}] = useMutation(CREATE_ARTICLE);
+  const [createArticle, { loading, error, data }] = useMutation(CREATE_ARTICLE, {
+   
+    context: {
+      headers: {
+          Authorization: `Bearer ${token}`
+      },
+      onCompleted(){
+      },
+  }
+  });
 
   if (loading) return <CircularProgress />;
   if (error) return <Alert severity="error">{error.message}</Alert>;
 
   const onSubmit: SubmitHandler<CreateArticleInput> = async (data) => {
-    console.log("Article data", data)
-    try{
+
+    try {
       const response = await createArticle({
-        variables:{
-          input: data
+        variables: {
+          input: data,
+          image: image
         }
       });
+      alert('success')
+
       navigate(MY_ARTICLES_ROUTE)
-    }catch(err){
-      alert('create article failed')
+    } catch (err) {
+      console.error('Create article failed', err);
+      alert('Create article failed');
     }
   }
 
@@ -65,48 +82,40 @@ export const CreateArticleForm = (): JSX.Element => {
 
       <Divider sx={{ width: '100%', my: 2 }}></Divider>
 
-      <Box component="form" onSubmit={handleSubmit(onSubmit)}  sx={{ mt: 1 }}>
-        <TextField
-        {...register('title')}
-          required
+      <Box   sx={{ mt: 1 }}>
+
+        <FormProvider {...methods}>
+          <form  onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+          {...register('title')}
           fullWidth
           id="title"
           label="Give it a title"
           margin="normal"
-          error={!!errors.title} 
-        helperText={errors.title?.message}
+          error={!!errors.title}
+          helperText={errors.title?.message}
         />
-        <FormControl fullWidth margin="normal">
+
           <InputLabel id="category-label">Category</InputLabel>
-          <Select
+          <Select fullWidth
             labelId="category-label"
-            id="category"
-            label="Category"
-          
-            // {...register('categoryIds')}
-            // value={categoryIds || ''}
-            // error={!!errors.categoryIds} 
-            
-           
+            {...register('categoryIds')}
+            error={!!errors.categoryIds}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={'tech'}>Technology</MenuItem>
-            <MenuItem value={'life'}>Lifestyle</MenuItem>
-            {/* Add other categories as needed */}
+            <MenuItem value={1}>Technology</MenuItem>
+            <MenuItem value={2}>Lifestyle</MenuItem>
           </Select>
-        </FormControl>
+
         <TextField
-          required
+    
           fullWidth
-          id="content"
+          id="description"
           label="Write something about it"
           multiline
           rows={4}
           margin="normal"
           {...register('description')}
-          error={!!errors.description} // Show error if there's an error for 'content'
+          error={!!errors.description}
           helperText={errors.description?.message}
         />
         <Button
@@ -123,9 +132,17 @@ export const CreateArticleForm = (): JSX.Element => {
 
           />
         </Button>
+
+        {image && (
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            {image.name}
+          </Typography>
+        )}
+
         <Typography variant="body2">
           Supports: JPG, JPEG2000, PNG
         </Typography>
+
         <Button
           type="submit"
           fullWidth
@@ -134,6 +151,9 @@ export const CreateArticleForm = (): JSX.Element => {
         >
           Publish Article
         </Button>
+          </form>
+        </FormProvider>
+        
       </Box>
     </Container>
   );
@@ -142,15 +162,22 @@ export const CreateArticleForm = (): JSX.Element => {
 
 
 
-// const [title, setTitle] = useState('');
-  // const [category, setCategory] = useState('');
-  // const [content, setContent] = useState('');
-  // const [image, setImage] = useState(null);
 
-  // const handleFileChange = (event) => {
-  //   setImage(event.target.files[0]);
-  // };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  // };
+
+
+
+/**
+ * 
+ *  {/* <FormControl fullWidth margin="normal">
+          <InputLabel id="category-label">Category</InputLabel>
+          <Select
+            labelId="category-label"
+            {...register('categoryIds')}
+            error={!!errors.categoryIds}
+          >
+            <MenuItem value="Technology">Technology</MenuItem>
+            <MenuItem value="Lifestyle">Lifestyle</MenuItem>
+          </Select>
+        </FormControl>
+ */

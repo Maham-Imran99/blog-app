@@ -1,8 +1,7 @@
 import { FC } from "react";
-import HomeScreen from "../../../components/home/Home";
+import HomeScreen from "../../../components/home";
 
-const HomePage: FC = () => (
+export const HomePage: FC = () => (
     <HomeScreen />
 );
 
-export default HomePage;

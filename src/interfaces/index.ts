@@ -17,6 +17,15 @@ export type CreateArticleInput = {
     imgUrl: string;
 };
 
+export type UpdateArticleInput = {
+    id: number
+    title: string;
+    categoryIds: number;
+    description: string;
+    time: string;
+    imgUrl: string;
+}
+
 export type ArticleCardProps = {
     imageUrl: string;
     title: string;
@@ -24,7 +33,6 @@ export type ArticleCardProps = {
     date: string;
     author: string;
     id: number
-    isFeatured: boolean
 }
 
 export type ChildrenType = {
@@ -37,3 +45,18 @@ export type AuthContextProps = {
     login: (token: string) => void;
     logout: () => void;
 };
+
+export type DeleteDialogProps = {
+    open: boolean;
+    onClose: () => void;
+    articleId: number
+};
+
+export type Params = {
+    id: string;
+};
+
+export type UpdateArticleProps = {
+    articleId: string;
+  };
+  

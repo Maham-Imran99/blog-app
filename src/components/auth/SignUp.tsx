@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
 import { Container, Box, TextField, Button, Typography, CircularProgress, Alert, Link } from '@mui/material';
 import { CREATE_ACCOUNT, ALREADY_ACCOUNT, PASSWORD_MSG } from '../../constants/constantText';
-import { flexColumnCenter } from '../../constants/styleConstants';
+import { flexColumnCenter } from '../../theme/styleConstants';
 import { SIGNUP_USER } from '../../graphQl/auth/mutations';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { SignUpUserInput } from '../../interfaces';
