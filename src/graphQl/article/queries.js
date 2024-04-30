@@ -87,3 +87,25 @@ query getPosts($input:Int!){
   }
 
 `
+
+export const SEARCH_POSTS = gql`
+query searchPosts($search: String!, $pagination: PaginationInput!) {
+  searchPosts(searchInput: $search, paginationInput: $pagination) {
+    posts {
+      id
+      categories {
+        name
+      }
+      createdAt
+      description
+      time
+      title
+      user {
+        name
+      }
+      imgUrl
+    }
+    total
+  }
+}
+`
